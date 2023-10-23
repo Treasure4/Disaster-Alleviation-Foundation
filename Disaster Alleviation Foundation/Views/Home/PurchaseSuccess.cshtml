@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Purchase Success";
+}
+
+<h2>Purchase Successful</h2>
+<p>Your purchase has been successfully recorded.</p>
+<p>Remaining Amount: @(((decimal)ViewBag.update).ToString("C"))</p>
+<p><a href="@Url.Action("Index", "Home")">Back to Home</a></p>
+

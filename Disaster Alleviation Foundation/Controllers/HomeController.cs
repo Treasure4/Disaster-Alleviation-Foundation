@@ -56,13 +56,13 @@ namespace Disaster_Alleviation_Foundation.Controllers
         }
 
         [HttpGet]
-        public IActionResult LogIn()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult LogIn(UsersModel Users)
+        public IActionResult Login(UsersModel Users)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

@@ -1,43 +1,95 @@
 html {
     font-size: 14px;
-/*    background: linear-gradient(45deg, purple, orange);
-    background-size: 400% 400%;
-    animation: gradient 5s linear infinite;*/
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
     position: relative;
     min-height: 100%;
-/*    background: linear-gradient(45deg, purple, orange);
-    background-size: 400% 400%;
-    animation: gradient 5s linear infinite;*/
 }
 
 body {
-    margin-bottom: 60px;
-    min-height: 100%;
-/*    background: linear-gradient(45deg, purple, orange);
-    background-size: 400% 400%;
-    animation: gradient 5s linear infinite;*/
+    background: linear-gradient(to bottom, #800080, #FFA500); /* Purple to Orange gradient */
+    margin: 0;
+    overflow: hidden;
 }
 
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Make sure bubbles don't interfere with user interaction */
+    /* Animation keyframes for bubbles */
+    animation: bubbles 15s linear infinite;
+}
 
-@keyframes gradient {
+/* Define bubble styles */
+.bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3); /* Transparent white bubble color */
+    border-radius: 50%;
+}
+
+/* Define bubble animation */
+@keyframes bubbles {
     0% {
-        background-position: 0% 50%;
+        transform: translateY(0) scale(1);
     }
 
     100% {
-        background-position: 100% 50%;
+        transform: translateY(-100vh) scale(2);
     }
 }
+/* Header styles */
+.header {
+    background-color: #FFA500; /* Orange */
+    color: #800080; /* Purple text color */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation menu styles */
+.nav-menu {
+    background-color: #FFA500; /* Orange background for the navigation menu */
+}
+
+/* Text color for general content */
+.content {
+    color: #333; /* Dark gray text color */
+}
+
+/* Call-to-action button styles */
+.cta-button {
+    background-color: #FFA500; /* Orange */
+    color: #FFF; /* White text color */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Links styles */
+a {
+    color: #FFA500; /* Orange link color */
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Add more custom styles as needed */

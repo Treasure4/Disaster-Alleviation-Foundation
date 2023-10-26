@@ -204,7 +204,7 @@ namespace Disaster_Alleviation_Foundation.Controllers
             conn.Close();
 
 
-            return View();
+            return View("Index");
         }
 
         [HttpGet]
@@ -214,15 +214,13 @@ namespace Disaster_Alleviation_Foundation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Allocation(Allocations allocations)
+        public IActionResult Allocation(AllocationsModel allocations)
         {
-            // Your validation and logic to ensure the disaster is active go here
-
             SqlCommand cmd;
             SqlConnection conn = new SqlConnection(connectionString);
             conn.Open();
 
-            string query = "INSERT INTO Allocation (Allocation, GoodsCategory ) VALUES (@Allocation, @GoodsCategory )";
+            string query = "INSERT INTO Allocations (Allocation, GoodsCategory ) VALUES (@Allocation, @GoodsCategory )";
             cmd = new SqlCommand(query, conn);
 
             cmd.Parameters.AddWithValue("@Allocation", allocations.Allocation);
@@ -234,7 +232,6 @@ namespace Disaster_Alleviation_Foundation.Controllers
             return View("Index");
         }
 
-            //goods
         [HttpGet]
         public IActionResult GoodsAllocation()
         {
@@ -247,51 +244,38 @@ namespace Disaster_Alleviation_Foundation.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult PurchaseSuccess()
+        public ActionResult AllocateGoods(GoodsAllocationModel goodsAllocation)
         {
-            return View();
-        }
-        public ActionResult AllocateGoods(GoodsAllocation goodsAllocation)
-            {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            { 
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                 
-                     
-                        using (SqlConnection conn = new SqlConnection(connectionString))
-                        {
-                            conn.Open();
+                    conn.Open();
 
-                            string sql = "INSERT INTO GoodsAllocations (GoodsDescription, Quantity) " +
-                                         "VALUES (@GoodsDescription, @Quantity)";
+                    string sql = "INSERT INTO GoodsAllocation (GoodsDescription, Quantity) " +
+                                    "VALUES (@GoodsDescription, @Quantity)";
 
-                            using (SqlCommand cmd = new SqlCommand(sql, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@GoodsDescription", goodsAllocation.GoodsDescription);
-                                cmd.Parameters.AddWithValue("@Quantity", goodsAllocation.Quantity);
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@GoodsDescription", goodsAllocation.GoodsDescription);
+                        cmd.Parameters.AddWithValue("@Quantity", goodsAllocation.Quantity);
 
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        // Redirect to a success page or return a success message
-                        return RedirectToAction("AllocationSuccess");
-                    
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-
-                // If model state is not valid or allocation failed, redisplay the form
-                return View(goodsAllocation);
+                    return RedirectToAction("AllocationSuccess"); 
             }
+            return View(goodsAllocation);
+        }
 
         [HttpGet]
         public ActionResult CapturePurchase()
         {
-            // Implement code to fetch available goods and active disasters
             return View();
         }
 
         [HttpPost]
-        public IActionResult Purchase(Purchase purchaseModel)
+        public IActionResult Purchase(PurchaseModel purchaseModel)
         {
             decimal avaMoney = CulAvaMoney();
 
@@ -303,7 +287,7 @@ namespace Disaster_Alleviation_Foundation.Controllers
             SqlCommand cmd;
             SqlConnection conn = new SqlConnection(connectionString);
             conn.Open();
-            string query = "INSERT INTO Purchases (Quantity,Description, TotalCost) VALUES (@Quantity,@Description, @TotalCost)";
+            string query = "INSERT INTO Purchase (Quantity,Description, TotalCost) VALUES (@Quantity,@Description, @TotalCost)";
             cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@Description", purchaseModel.Quantity);
             cmd.Parameters.AddWithValue("@Quantity", purchaseModel.Description);
@@ -335,6 +319,12 @@ namespace Disaster_Alleviation_Foundation.Controllers
 
         [HttpGet]
         public ActionResult Purchase()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult PurchaseSuccess()
         {
             return View();
         }

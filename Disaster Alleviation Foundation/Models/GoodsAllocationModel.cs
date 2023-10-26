@@ -1,6 +1,6 @@
 ﻿namespace Disaster_Alleviation_Foundation.Models
 {
-    public class GoodsAllocation
+    public class GoodsAllocationModel
     {
         public int ID { get; set; }
         public int DisasterID { get; set; }

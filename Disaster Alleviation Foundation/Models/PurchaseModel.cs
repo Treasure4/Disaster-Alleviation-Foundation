@@ -1,6 +1,6 @@
 ﻿namespace Disaster_Alleviation_Foundation.Models
 {
-    public class Purchase
+    public class PurchaseModel
     {
         public int ID { get; set; }
         public int Quantity { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Disaster_Alleviation_Foundation.Models
 {
-    public class Allocations
+    public class AllocationsModel
     {
         [Key]
         public int ID { get; set; }

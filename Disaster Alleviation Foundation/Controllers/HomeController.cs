@@ -10,6 +10,7 @@ namespace Disaster_Alleviation_Foundation.Controllers
 {
     public class HomeController : Controller
     {
+
         public string connectionString = "Server=tcp:st10102544.database.windows.net,1433;Initial Catalog=dlpromwebsite;Persist Security Info=False;User ID=djadmin;Password=Biggie4life;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private readonly ILogger<HomeController> _logger;

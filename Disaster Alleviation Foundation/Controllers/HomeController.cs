@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using NuGet.Packaging.Signing;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace Disaster_Alleviation_Foundation.Controllers
 {
@@ -165,13 +166,14 @@ namespace Disaster_Alleviation_Foundation.Controllers
             SqlCommand cmd;
             SqlConnection conn = new SqlConnection(connectionString);
             conn.Open();
-            string query = "INSERT INTO Disasters (StartDate, EndDate, Location, Description, AidType) VALUES (@StartDate, @EndDate, @Location, @Description, @AidType)";
+            string query = "INSERT INTO Disasters (StartDate, EndDate, Location, Description, AidType, ActiveDisasters) VALUES (@StartDate, @EndDate, @Location, @Description, @AidType,@ActiveDisasters)";
             cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@StartDate", disaster.StartDate);
             cmd.Parameters.AddWithValue("@EndDate", disaster.EndDate);
             cmd.Parameters.AddWithValue("@Location", disaster.Location);
             cmd.Parameters.AddWithValue("@Description", disaster.Description);
             cmd.Parameters.AddWithValue("@AidType", disaster.AidType);
+            cmd.Parameters.AddWithValue("@ActiveDisasters", disaster.ActiveDisasters);
             cmd.ExecuteNonQuery();
             conn.Close();
 
@@ -329,6 +331,26 @@ namespace Disaster_Alleviation_Foundation.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> PublicInfo()
+{
+    var model = new PublicInfoViewModel();
+
+    // Calculate total monetary donations
+    decimal totalMonetaryDonations = await _context.MonetaryDonation.SumAsync(d => d.Amount);
+    model.TotalMonetaryDonations = (int)totalMonetaryDonations; // Explicit conversion to int
+
+    // Calculate total goods received
+    model.TotalGoodsReceived = await _context.GoodsDonation.SumAsync(d => d.NumOfItems);
+
+    // Get currently active disasters with money and goods allocated
+    //model.ActiveDisasters = await _context.Disasters
+    //    .Where(d => d.EndDate >= DateTime.Now)
+    //    //.Include(d => d.MoneyAllocations)
+    //    //.Include(d => d.GoodsAllocation)
+    //    .ToListAsync();
+    return View(model);
+}
 
     }
 }

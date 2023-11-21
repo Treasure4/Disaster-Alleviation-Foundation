@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.AidType)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveDisasters)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -54,6 +57,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AidType)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActiveDisasters)
+                </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

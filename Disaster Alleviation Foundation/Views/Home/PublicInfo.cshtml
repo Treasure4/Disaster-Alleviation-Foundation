@@ -1,0 +1,20 @@
+﻿@model Disaster_Alleviation_Foundation.Controllers.PublicInfoViewModel
+@{
+    ViewData["Title"] = "Public Information";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Total monetary donations received: $@Model.TotalMonetaryDonations</p>
+
+<p>Total number of goods received: @Model.TotalGoodsReceived items</p>
+
+@*<h2>Currently Active Disasters</h2>
+@foreach (var disaster in Model.ActiveDisasters)
+{
+    <div>
+        <h3>@disaster.Description</h3>
+        <p>Money Allocated: $@disaster.MoneyAllocations.Sum(a => a.Allocation)</p>
+        <p>Goods Allocated: @disaster.GoodsAllocation.Sum(a => a.NumOfItems) items</p>
+    </div>
+}*@

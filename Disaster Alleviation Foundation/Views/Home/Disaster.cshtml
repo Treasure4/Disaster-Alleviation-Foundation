@@ -38,6 +38,13 @@
                 <span asp-validation-for="AidType" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="ActiveDisasters" class="form-check-input" />
+                    <label class="form-check-label" asp-for="ActiveDisasters">Active Disasters</label>
+                </div>
+                <span asp-validation-for="ActiveDisasters" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

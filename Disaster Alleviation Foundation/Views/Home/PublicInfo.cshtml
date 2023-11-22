@@ -9,12 +9,18 @@
 
 <p>Total number of goods received: @Model.TotalGoodsReceived items</p>
 
-@*<h2>Currently Active Disasters</h2>
+<h2>Currently Active Disasters</h2>
 @foreach (var disaster in Model.ActiveDisasters)
 {
     <div>
         <h3>@disaster.Description</h3>
-        <p>Money Allocated: $@disaster.MoneyAllocations.Sum(a => a.Allocation)</p>
-        <p>Goods Allocated: @disaster.GoodsAllocation.Sum(a => a.NumOfItems) items</p>
+
+            <p>Start date: @disaster.StartDate</p>
+            <p>Location: @disaster.Location</p>
+        
+            <p>Aid: @disaster.AidType</p>
+        
     </div>
-}*@
+}
+
+

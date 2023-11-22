@@ -332,25 +332,52 @@ namespace Disaster_Alleviation_Foundation.Controllers
             return View();
         }
 
+        //    public async Task<IActionResult> PublicInfo()
+        //    {
+        //        var model = new PublicInfoViewModel();
+
+        //        // Calculate total monetary donations
+        //        decimal totalMonetaryDonations = await _context.MonetaryDonation.Sum(d => d.Amount);
+        //        model.TotalMonetaryDonations = (int)totalMonetaryDonations; // Explicit conversion to int
+
+        //        // Calculate total goods received
+        //        model.TotalGoodsReceived = await _context.GoodsDonation.SumA(d => d.NumOfItems);
+
+
+        //        model.ActiveDisasters = await _context.Disasters
+        //            .Where(d => d.EndDate >= DateTime.Now)
+        //            .Include(d => d.MoneyAllocations)
+        //            .Include(d => d.GoodsAllocation)
+        //            .ToListAsync();
+        //        return View(model);
+        //}
+
         public async Task<IActionResult> PublicInfo()
-{
-    var model = new PublicInfoViewModel();
+        {
+            try
+            {
+                var model = new PublicInfoViewModel();
 
-    // Calculate total monetary donations
-    decimal totalMonetaryDonations = await _context.MonetaryDonation.SumAsync(d => d.Amount);
-    model.TotalMonetaryDonations = (int)totalMonetaryDonations; // Explicit conversion to int
+                // Total monetary donations received
+                model.TotalMonetaryDonations = await _context.MonetaryDonation.SumAsync(d => d.Amount);
 
-    // Calculate total goods received
-    model.TotalGoodsReceived = await _context.GoodsDonation.SumAsync(d => d.NumOfItems);
+                // Total number of goods received
+                model.TotalGoodsReceived = await _context.GoodsDonation.SumAsync(d => d.NumOfItems);
 
-    // Get currently active disasters with money and goods allocated
-    //model.ActiveDisasters = await _context.Disasters
-    //    .Where(d => d.EndDate >= DateTime.Now)
-    //    //.Include(d => d.MoneyAllocations)
-    //    //.Include(d => d.GoodsAllocation)
-    //    .ToListAsync();
-    return View(model);
-}
+                // Currently active disasters
+                model.ActiveDisasters = await _context.Disasters
+                    .Where(d => d.ActiveDisasters)
+                    .ToListAsync();
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                _logger.LogError(ex, "An error occurred while retrieving public information.");
+                return View("Error");
+            }
+        }
 
     }
 }

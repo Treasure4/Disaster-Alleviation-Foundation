@@ -14,6 +14,13 @@ builder.Services.AddDbContext<DisasterContext>(options =>
 
 var app = builder.Build();
 
+// Map controllers
+app.MapControllerRoute(
+    name: "publicinfo",
+    pattern: "publicinfo",
+    defaults: new { controller = "Home", action = "Index" }
+);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -29,6 +36,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Map default controller route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

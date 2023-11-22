@@ -332,25 +332,7 @@ namespace Disaster_Alleviation_Foundation.Controllers
             return View();
         }
 
-        //    public async Task<IActionResult> PublicInfo()
-        //    {
-        //        var model = new PublicInfoViewModel();
-
-        //        // Calculate total monetary donations
-        //        decimal totalMonetaryDonations = await _context.MonetaryDonation.Sum(d => d.Amount);
-        //        model.TotalMonetaryDonations = (int)totalMonetaryDonations; // Explicit conversion to int
-
-        //        // Calculate total goods received
-        //        model.TotalGoodsReceived = await _context.GoodsDonation.SumA(d => d.NumOfItems);
-
-
-        //        model.ActiveDisasters = await _context.Disasters
-        //            .Where(d => d.EndDate >= DateTime.Now)
-        //            .Include(d => d.MoneyAllocations)
-        //            .Include(d => d.GoodsAllocation)
-        //            .ToListAsync();
-        //        return View(model);
-        //}
+       
 
         public async Task<IActionResult> PublicInfo()
         {
